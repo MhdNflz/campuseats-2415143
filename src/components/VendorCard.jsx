@@ -1,26 +1,19 @@
-function VendorCard({name, location, openHours, isOpen}) {
-    const vendor = {
-        name: "Kafe Mahallah Salahuddin",
-        location: "Mahallah Salahuddin",
-        openHours: "7:30 am - 10:00 pm",
-        isOpen: true,
-    };
-
+function VendorCard({vendor, isSelected, onSelect}) {
+    
     return (
-        <article className="card vendor-card"> 
-            <div className="thumb" aria-hidden="true">
-                {vendor.name.charAt(0)}
-            </div>
+        <button type="button" className={isSelected ? 'card vendor-card selected' : 'card vendor-card'}
+            onClick={() => onSelect(vendor.id)}
+        >
+            <div className="thumb" aria-hidden="true">{vendor.className}</div>
             <div>
-                <h2>{vendor.name}</h2>
+                <h3>{vendor.name}</h3>
                 <p className="muted">{vendor.location}</p>
-                <p className="muted">Open: {VendorCard.openHours} </p>
+                <p className="muted">Open: {vendor.openHours}</p>
                 <span className={vendor.isOpen ? 'status open' : 'status closed'}>
                     {vendor.isOpen ? 'Open now' : 'Closed'}
                 </span>
             </div>
-        </article>
-        
+        </button>
     )
 }
 
