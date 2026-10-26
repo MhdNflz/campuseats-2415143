@@ -1,14 +1,19 @@
-function MenuItemCard({item, onAdd}) {
+function MenuItemCard({item, onAdd, isFav, onToggleFavourite}) {
 
     return(
         <article className="card menu-card">
             <div className="thumb" aria-hidden="true">
                 {item.name.charAt(0)}
             </div>
+
+            <button
+                onClick={() => onToggleFavourite(item.id)}
+                style={{background: 'none', border: 'none', fontSize: '1.5rem',
+                    cursor: 'pointer', color: isFav ? 'gold':'gray'}}
+            >
+                {isFav ? '★':'☆'}
+            </button>
             <p className="tag">{item.category} </p>
-
-
-
             <h3>{item.name}</h3>
             <p className="muted">{item.description}</p>
             <p className="price">RM {item.price.toFixed(2)}</p>

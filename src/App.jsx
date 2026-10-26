@@ -18,6 +18,10 @@ function App() {
   const [error, setError] = useState(null)
   const [reloadKey, setReloadKey] = useState(0)
 
+  //for personal feature 3.Favourite items
+  const [favourite, setFavourite] = useState([])
+  const [showFavOnly, setShowFavOnly] = useState(false)
+  
   useEffect (() => {
     const controller = new AbortController()
 
@@ -80,6 +84,16 @@ function App() {
     setView('done')
   }
 
+  function handleToggleFavourite(itemId) {
+    setFavourite((prev) => {
+      if (prev.includes(itemId)) {
+        return prev.filter((id) => id !== itemId)
+      } else {
+        return [...prev, itemId]
+      }
+    })
+  }
+
   let content
   if (view === 'cart') {
     content = (
@@ -106,6 +120,12 @@ function App() {
   } else if (error) {
     content = <ErrorMessage message={error} onRetry={() => setReloadKey((k) => k + 1)} />
   } else if (selectedVendor) {
+
+    let displayItems = selectedVendor.menu
+    if (showFavOnly) {
+      displayItems = displayItems.filter((item) => favourite.includes(item.id))
+    }
+
     content = (
       <>
         <section>
@@ -133,17 +153,29 @@ function App() {
           >
             <h2 className="section-title">Menu: {selectedVendor.name}</h2>
 
+            {/*to toggle checkbox*/}
+            <label style={{fontWeight: 'bold', cursor: 'pointer'}}>
+              <input
+                type="checkbox"
+                checked={showFavOnly}
+                onChange={(e) => setShowFavOnly(e.target.checked)}
+                style={{marginRight: '8px'}}
+              />
+              Favourite only
+            </label>
           </div>
 
           <MenuList
-            items={selectedVendor.menu}
+            items={displayItems}
             onAdd={handleAddToCart} 
+            favourite={favourite}
+            onToggleFavourite={handleToggleFavourite}
           />
         </section>
       </>
     )
   }
-  
+
   return (
     <>
         <Header cartCount={cartCount}

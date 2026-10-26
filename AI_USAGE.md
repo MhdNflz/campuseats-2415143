@@ -46,6 +46,8 @@ Add a new section every week, before you tag. Did not use AI? Write "None" under
 }
 is this correct for mahallah must be chosen
 3. Error check all the code with Gemini
+4. Lift favourites to App as an array of item ids; add a “Favourites only” toggle.
+show how to do this with simple explaination
 
 - What I kept, changed or rejected, and why:
 2. change:  if (name.MAHALLAHS( null)) errors.MAHALLAHS = 'Chose a Mahallah' 

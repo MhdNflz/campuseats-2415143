@@ -1,6 +1,6 @@
 import MenuItemCard from "./MenuItemCard.jsx";
 
-function MenuList({items, onAdd}) {
+function MenuList({items, onAdd, favourite, onToggleFavourite}) {
     return (
         <div className="grid">
             {items.map((item) => (
@@ -8,6 +8,8 @@ function MenuList({items, onAdd}) {
                     key={item.id} 
                     item={item} 
                     onAdd={onAdd}
+                    isFav ={favourite.includes(item.id)}
+                    onToggleFavourite={onToggleFavourite}
                 />
             ))}
         </div>
